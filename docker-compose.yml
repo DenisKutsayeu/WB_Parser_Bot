@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  fastapi_app:
+    build:
+      context: .
+      dockerfile: dockerfile.fastapi
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./products.db:/app/products.db
+    environment:
+      SQLALCHEMY_DATABASE_URL: "sqlite:///./products.db"
+
+  aiogram_bot:
+    build:
+      context: .
+      dockerfile: dockerfile.bot
+    volumes:
+      - ./products.db:/app/products.db
+    environment:
+      ASYNC_SQLALCHEMY_DATABASE_URL: "sqlite+aiosqlite:///./products.db"
+      API_TOKEN: "7708205808:AAGw0XoSx58nnTAgdZk7Re4ryBhwAOHPt5I"
+
