@@ -9,8 +9,8 @@ services:
       - "8000:8000"
     volumes:
       - ./products.db:/app/products.db
-    environment:
-      SQLALCHEMY_DATABASE_URL: "sqlite:///./products.db"
+    env_file:
+      - .env
 
   aiogram_bot:
     build:
@@ -18,7 +18,6 @@ services:
       dockerfile: dockerfile.bot
     volumes:
       - ./products.db:/app/products.db
-    environment:
-      ASYNC_SQLALCHEMY_DATABASE_URL: "sqlite+aiosqlite:///./products.db"
-      API_TOKEN: "7708205808:AAGw0XoSx58nnTAgdZk7Re4ryBhwAOHPt5I"
+    env_file:
+      - .env
 
